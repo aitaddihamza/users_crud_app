@@ -1,7 +1,11 @@
-import React from "react";
+import { Outlet } from "react-router-dom";
 
 const GuestLayout = () => {
-    return <div>GuestLayout</div>;
+    return (
+        <div className="p-4 mt-8">
+            <Outlet />
+        </div>
+    );
 };
 
 export default GuestLayout;
