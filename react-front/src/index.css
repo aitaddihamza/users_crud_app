@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    .btn-primary {
+        @apply [&]:bg-green-600 [&]:py-2 [&]:px-1 [&]:font-medium [&]:rounded [&]:text-white [&]:hover:text-green-600 [&]:hover:bg-transparent [&]:border-2 [&]:border-solid [&]:border-green-600 transition-all duration-500;
+    }
+}
