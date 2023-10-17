@@ -56,7 +56,6 @@ const DefaultLayout = () => {
                             Logout{" "}
                         </button>
                     </header>
-                    <h1>Default layout </h1>
                     <Outlet />
                 </section>
             </div>
