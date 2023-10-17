@@ -1,12 +1,24 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const AppContext = createContext();
 
 const Context = ({ children }) => {
-    const [user, setUser] = useState({
-        name: "Jack",
-    });
-    const [token, setToken] = useState(null);
+    const [user, _setUser] = useState(
+        JSON.parse(localStorage.getItem("userinfos")) || {}
+    );
+    const [token, _setToken] = useState(
+        localStorage.getItem("accessToken") || null
+    );
+
+    const setToken = (token) => {
+        _setToken(token);
+        localStorage.setItem("accessToken", token);
+    };
+
+    const setUser = (user) => {
+        _setUser(user);
+        localStorage.setItem("userinfos", JSON.stringify(user));
+    };
 
     return (
         <AppContext.Provider
@@ -24,4 +36,6 @@ const Context = ({ children }) => {
 
 export default Context;
 
-export const useValue = () => useContext(AppContext);
+export const useValue = () => {
+    return useContext(AppContext);
+};

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../../api/axios-client";
+import { useValue } from "../../Context";
 
 const Register = () => {
     const nameRef = useRef();
@@ -8,6 +9,9 @@ const Register = () => {
     const passwordRef = useRef();
     const passwordConfirmationRef = useRef();
     const [errors, setErrors] = useState(null);
+    const { setUser, setToken } = useValue();
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,7 +25,9 @@ const Register = () => {
         try {
             const response = await axiosClient.post("/register", payload);
             const data = response.data;
-            console.log(data);
+            setUser(data.user);
+            setToken(data.token);
+            navigate("/dashboard");
         } catch (err) {
             if (err.response.status === 422) {
                 const data = err.response.data;

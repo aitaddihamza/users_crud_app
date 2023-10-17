@@ -18,7 +18,7 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        $token = "1234";
+        $token = $user->createToken('main')->plainTextToken;
         return response(compact('user', 'token'));
     }
     public function login(LoginRequest $request)
@@ -30,7 +30,8 @@ class AuthController extends Controller
             ], 422);
         }
         $user = Auth::user();
-        $token = "1234";
+        /** @var User $user */
+        $token = $user->createToken('main')->plainTextToken;
         return response(compact('user', 'token'));
     }
 }

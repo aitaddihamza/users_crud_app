@@ -1,7 +1,25 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { useValue } from "../Context";
+import { useEffect } from "react";
+import axiosClient from "../api/axios-client";
 
 const DefaultLayout = () => {
+    const { token, user, setToken } = useValue();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) navigate("/login");
+        axiosClient.get("/user").then(({ data }) => {
+            console.log(data);
+        });
+    }, []);
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        navigate("/login");
+    };
+
     return (
         <div className="min-h-screen flex flex-col">
             <div className="flex  flex-1">
@@ -29,9 +47,14 @@ const DefaultLayout = () => {
                 <section className="flex-1">
                     <header className="bg-white flex items-center justify-end  pr-4 gap-8  shadow-md py-4">
                         <h1 className="cursor-pointer hover:underline text-[#333] font-medium">
-                            Jack
+                            {user.name}
                         </h1>
-                        <button className="btn-primary">Logout </button>
+                        <button
+                            className="btn-primary"
+                            onClick={() => logout()}
+                        >
+                            Logout{" "}
+                        </button>
                     </header>
                     <h1>Default layout </h1>
                     <Outlet />
