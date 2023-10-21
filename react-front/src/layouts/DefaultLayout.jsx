@@ -6,14 +6,11 @@ import axiosClient from "../api/axios-client";
 import dashboardPng from "../images/dashboard.png";
 
 const DefaultLayout = () => {
-    const { token, user, setToken, notification } = useValue();
+    const { token, user, notification } = useValue();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (!token) navigate("/login");
-        axiosClient.get("/user").then(({ data }) => {
-            console.log(data);
-        });
     }, []);
 
     const logout = () => {
