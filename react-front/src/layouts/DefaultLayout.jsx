@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useValue } from "../Context";
 import { useEffect } from "react";
 import axiosClient from "../api/axios-client";
+import dashboardPng from "../images/dashboard.png";
 
 const DefaultLayout = () => {
-    const { token, user, setToken } = useValue();
+    const { token, user, setToken, notification } = useValue();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,8 +24,10 @@ const DefaultLayout = () => {
     return (
         <div className="min-h-screen flex flex-col">
             <div className="flex  flex-1">
-                <aside className="bg-green-500 flex  flex-col p-4  py-[4rem] gap-8 w-1/5">
-                    <figure>Dashboard image</figure>
+                <aside className="bg-green-500 flex  flex-col p-4 gap-8 w-1/6">
+                    <figure className="w-[100px] ">
+                        <img className="w-[100%]" src={dashboardPng} alt="" />
+                    </figure>
                     <ul className="flex flex-col gap-2">
                         <li className="flex">
                             <Link
@@ -46,6 +49,11 @@ const DefaultLayout = () => {
                 </aside>
                 <section className="flex-1">
                     <header className="bg-white flex items-center justify-end  pr-4 gap-8  shadow-md py-4">
+                        {notification && (
+                            <p className="p-2 rounded text-white bg-green-500">
+                                {notification}
+                            </p>
+                        )}
                         <h1 className="cursor-pointer hover:underline text-[#333] font-medium">
                             {user.name}
                         </h1>
@@ -53,7 +61,7 @@ const DefaultLayout = () => {
                             className="btn-primary"
                             onClick={() => logout()}
                         >
-                            Logout{" "}
+                            Logout
                         </button>
                     </header>
                     <Outlet />
