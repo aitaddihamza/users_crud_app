@@ -1,14 +1,18 @@
 # Use following commandes to setup the project
 
-<ol>
-    <li>composer install </li>
+<ul>
+    <li>
+        ```
+        composer install 
+        ```
+    </li>
     <li>php artisan migrate </li>
     <li>php artisan db:seed</li>
     <li>php artisan serve</li>
     <li>cd react-front </li>
     <li>npm install </li>
     <li>npm run dev</li>
-</ol>
+</ul>
 
 # usage
 
